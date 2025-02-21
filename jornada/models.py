@@ -1,3 +1,9 @@
 from django.db import models
 
-# Create your models here.
+class Depoimento(models.Model):
+    nome = models.CharField(max_length=30)
+    depoimento = models.TextField
+    imagem = models.ImageField
+    
+    def __str__(self):
+        return self.nome
