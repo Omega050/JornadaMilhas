@@ -1,6 +1,8 @@
+from django.forms import ValidationError
 from django.test import TestCase
 from django.core.files.uploadedfile import SimpleUploadedFile
-from jornada.models import Depoimento
+from moneyed import Money
+from jornada.models import Depoimento, Destino
 
 class ModelDepoimentoTestCase(TestCase):
     def setUp(self):
@@ -21,3 +23,23 @@ class ModelDepoimentoTestCase(TestCase):
         self.assertEqual(self.depoimento.nome, "Atacama")
         self.assertTrue(self.depoimento.depoimento.startswith("Lagos a 4.000 metros"))
         self.assertIn("test_image", self.depoimento.imagem.name)
+
+class ModelDestinoTestCase(TestCase):
+    def setUp(self):
+        image = SimpleUploadedFile(
+            name='test_image.jpg',
+            content=b"\x47\x49\x46\x38\x39\x61\x01\x00\x01\x00\x80\x00\x00\xFF\xFF\xFF\x00\x00\x00\x21\xF9\x04\x00\x00\x00\x00\x00\x2C\x00\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02\x44\x01\x00\x3B",
+            content_type='image/jpeg'
+        )
+
+        self.destino = Destino.objects.create(
+            nome= 'França',
+            preco = 550.00,
+            imagem=image,
+        )
+
+    def test_destino_criado(self):
+        """Teste que verifica os atributos do modelo de Destino"""
+        self.assertEqual(self.destino.nome, "França")
+        self.assertEqual(self.destino.preco, Money('550.0', 'BRL'))
+        self.assertIn("test_image", self.destino.imagem.name)

@@ -1,7 +1,9 @@
+
 from django.test import TestCase
 from django.core.files.uploadedfile import SimpleUploadedFile
-from jornada.models import Depoimento
-from jornada.serializers import DepoimentoSerializer
+from moneyed import Money
+from jornada.models import Depoimento, Destino
+from jornada.serializers import DepoimentoSerializer, DestinoSerializer
 
 class SerializerDepoimentoTestCase(TestCase):
     def setUp(self):
@@ -29,4 +31,28 @@ class SerializerDepoimentoTestCase(TestCase):
         self.assertTrue(dados['depoimento'].startswith("Lagos a 4.000 metros"))
         self.assertIn("test_image", dados['imagem'])
 
+class SerializerDestinoTestCase(TestCase):
+    def setUp(self):
+        image = SimpleUploadedFile(
+            name='test_image.jpg',
+            content=b"\x47\x49\x46\x38\x39\x61\x01\x00\x01\x00\x80\x00\x00\xFF\xFF\xFF\x00\x00\x00\x21\xF9\x04\x00\x00\x00\x00\x00\x2C\x00\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02\x44\x01\x00\x3B",
+            content_type='image/jpeg'
+        )
+        self.destino = Destino.objects.create(
+            nome= 'Franca',
+            preco= 550.00,
+            imagem=image
+        )
+        self.serializer_destino = DestinoSerializer(instance = self.destino)
     
+    def test_verifica_campos_serializados_destino(self):
+        """Teste que verifica a serialização do modelo de Destino"""
+        dados = self.serializer_destino.data
+        self.assertEqual(set(dados.keys()), set(['id', 'nome','preco', 'preco_currency', 'imagem']))
+    
+    def test_verifica__conteudo_dos_campos_serializados_destino(self):
+        """Teste que verifica os conteúdos serializados de Destino"""
+        dados = self.serializer_destino.data
+        self.assertEqual(dados['nome'], self.destino.nome)
+        self.assertEqual(Money(dados['preco'], 'BRL'), self.destino.preco)
+        self.assertIn("test_image", dados['imagem'])

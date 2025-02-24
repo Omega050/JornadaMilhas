@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'jornada',
+    'djmoney',
+    'django_filters',
     'corsheaders',
     'rest_framework',
 ]

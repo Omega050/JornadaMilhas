@@ -16,11 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from jornada.views import DepoimentoViewSet, ListaDepoimentosAleatorios
+from jornada.views import DepoimentoViewSet, DestinoSimplificadoViewSet, DestinoDetalhadoViewSet, ListaDepoimentosAleatorios
 from rest_framework import routers
 
 router = routers.DefaultRouter()
 router.register('depoimentos', DepoimentoViewSet, basename = "Depoimentos")
+router.register('destinos', DestinoSimplificadoViewSet, basename = "Destinos")
+router.register('destinos-detalhados/', DestinoDetalhadoViewSet, basename = "Destino Detalhado")
 router.register('depoimentos-home', ListaDepoimentosAleatorios, basename = "Home" )
 
 urlpatterns = [
