@@ -53,13 +53,6 @@ Para rodar os testes automatizados:
 python manage.py test
 ```
 
-## Contribuição
-1. Fork este repositório.
-2. Crie um branch para sua feature (`git checkout -b minha-feature`).
-3. Commit suas modificações (`git commit -m 'Adiciona nova feature'`).
-4. Envie para o repositório (`git push origin minha-feature`).
-5. Abra um Pull Request.
-
 ## Licença
 Este projeto está sob a licença MIT. Para mais informações, consulte o arquivo `LICENSE`.
 
