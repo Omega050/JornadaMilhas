@@ -1,4 +1,4 @@
-# JornadaMilhas✈️
+# JornadaMilhas ✈️
 
 ## Descrição
 JornadaMilhas é uma API desenvolvida com Django REST Framework como parte do desafio Back-End 7 da Alura. O projeto tem como objetivo facilitar a gestão de viagens, permitindo o cadastro e a consulta de destinos turísticos.
