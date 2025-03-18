@@ -21,8 +21,8 @@ from rest_framework import routers
 
 router = routers.DefaultRouter()
 router.register('depoimentos', DepoimentoViewSet, basename = "Depoimentos")
-router.register('destinos', DestinoSimplificadoViewSet, basename = "Destinos")
-router.register('destinos-detalhados/', DestinoDetalhadoViewSet, basename = "Destino Detalhado")
+router.register('destinos', DestinoDetalhadoViewSet, basename = "Destino Detalhado")
+router.register('destino-simplificado', DestinoSimplificadoViewSet, basename = "Destinos")
 router.register('depoimentos-home', ListaDepoimentosAleatorios, basename = "Home" )
 
 urlpatterns = [

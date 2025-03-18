@@ -1,6 +1,6 @@
 from djmoney.models.fields import MoneyField
 from django.db import models
-from djmoney.models.validators import  MinMoneyValidator
+from djmoney.models.validators import  MinMoneyValidator, MaxMoneyValidator
 
 class Depoimento(models.Model):
     nome = models.CharField(max_length=30, blank=False, null=False)
@@ -11,17 +11,17 @@ class Depoimento(models.Model):
         return self.nome
 
 class Destino(models.Model):
-    nome = models.CharField(max_length=30, blank=False, null=False)
+    nome = models.CharField(max_length=30, blank=False, null=False, unique = True)
     imagem = models.ImageField(upload_to='destinos/', blank=False, null=False)
     imagem2 = models.ImageField(upload_to='destinos/', blank=False, null=False)
     preco = MoneyField(
         decimal_places=2,
-        default=0,
+        default=100,
         default_currency='BRL',  
-        max_digits=11,
+        max_digits=20,
         validators =
         [
-            MinMoneyValidator(0, message='Valor inválido. O valor não pode ser negativo',)
+            MinMoneyValidator(0, message='Valor inválido. O valor não pode ser negativo',),
         ],
     )
     meta = models.CharField(max_length=160, null=False, blank=False)
